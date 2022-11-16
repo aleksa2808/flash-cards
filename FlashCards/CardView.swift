@@ -94,7 +94,7 @@ struct CardView: View {
             )
             .modifier(FlipEffect(flipped: $isShowingFront, angle: animate3d ? 180 : 0, axis: (x: 0, y: -1)))
             .onTapGesture {
-                withAnimation(Animation.linear(duration: 0.25)) {
+                withAnimation(Animation.linear(duration: 0.2)) {
                     self.animate3d.toggle()
                 }
             }
