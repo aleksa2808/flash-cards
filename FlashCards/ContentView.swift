@@ -7,15 +7,11 @@
 
 import SwiftUI
 
-struct Card: Hashable, CustomStringConvertible {
+struct Card: Hashable {
     var id: Int
     
     let frontText: String
     let backText: String
-    
-    var description: String {
-        return "pera detlic"
-    }
 }
 
 struct ContentView: View {
@@ -27,23 +23,15 @@ struct ContentView: View {
         Card(id: 4, frontText: "slusati", backText: "escuchar"),
         Card(id: 5, frontText: "pevati", backText: "cantar"),
         Card(id: 6, frontText: "sto", backText: "mesa"),
-        Card(id: 6, frontText: "putovati", backText: "viajar"),
-        Card(id: 6, frontText: "zivot", backText: "vida")
+        Card(id: 7, frontText: "putovati", backText: "viajar"),
+        Card(id: 8, frontText: "zivot", backText: "vida")
     ]
     
-    /// Return the CardViews width for the given offset in the array
-    /// - Parameters:
-    ///   - geometry: The geometry proxy of the parent
-    ///   - id: The ID of the current card
     private func getCardWidth(_ geometry: GeometryProxy, id: Int) -> CGFloat {
         let offset: CGFloat = CGFloat(cards.count - 1 - id) * 10
         return geometry.size.width - offset
     }
     
-    /// Return the CardViews frame offset for the given offset in the array
-    /// - Parameters:
-    ///   - geometry: The geometry proxy of the parent
-    ///   - id: The ID of the current card
     private func getCardOffset(_ geometry: GeometryProxy, id: Int) -> CGFloat {
         return  CGFloat(cards.count - 1 - id) * 10
     }
@@ -67,7 +55,7 @@ struct ContentView: View {
                             Group {
                                 // Range Operator
                                 if (self.maxID - 3)...self.maxID ~= card.id {
-                                    CardView(card: card, onRemove: { removedCard in
+                                    CardView(card: card, showText: self.maxID == card.id, onRemove: { removedCard in
                                         // Remove that card from our array
                                         self.cards.removeAll { $0.id == removedCard.id }
                                     })
