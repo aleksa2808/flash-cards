@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
+    @State private var isShowingFront: Bool = true
     @State private var translation: CGSize = .zero
     @State private var swipeStatus: CorrectWrong = .none
     
@@ -36,7 +37,7 @@ struct CardView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .leading) {
-                 ZStack(alignment: self.swipeStatus == .correct ? .topLeading : .topTrailing) {
+                ZStack(alignment: self.swipeStatus == .correct ? .topLeading : .topTrailing) {
                     if self.swipeStatus == .correct {
                         Text("CORRECT")
                             .font(.headline)
@@ -46,7 +47,7 @@ struct CardView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.green, lineWidth: 3.0)
-                        ).padding(24)
+                            ).padding(24)
                             .rotationEffect(Angle.degrees(-45))
                     } else if self.swipeStatus == .wrong {
                         Text("WRONG")
@@ -57,24 +58,26 @@ struct CardView: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.red, lineWidth: 3.0)
-                        ).padding(.top, 45)
+                            ).padding(.top, 45)
                             .rotationEffect(Angle.degrees(45))
                     }
                 }
                 
                 HStack {
-                    VStack(alignment: .leading, spacing: 6) {
+                    if self.isShowingFront {
                         Text(self.card.frontText)
                             .font(.title)
+                            .multilineTextAlignment(.center)
                             .bold()
-//                        Text(self.card.backText)
-//                            .font(.subheadline)
-//                            .bold()
+                    } else {
+                        Text(self.card.backText)
+                            .font(.title)
+                            .bold()
                     }
-                    Spacer()
                 }
                 .padding(.horizontal)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
             .background(Color.white)
             .cornerRadius(10)
@@ -82,6 +85,12 @@ struct CardView: View {
             .animation(.interactiveSpring(), value: self.translation)
             .offset(x: self.translation.width, y: 0)
             .rotationEffect(.degrees(Double(self.translation.width / geometry.size.width) * 25), anchor: .bottom)
+            .gesture(
+                TapGesture()
+                    .onEnded { _ in
+                        self.isShowingFront = !self.isShowingFront
+                    }
+            )
             .gesture(
                 DragGesture()
                     .onChanged { value in
@@ -94,9 +103,8 @@ struct CardView: View {
                         } else {
                             self.swipeStatus = .none
                         }
-                        
-                }.onEnded { value in
-                    // determine snap distance > 0.5 aka half the width of the screen
+                    }.onEnded { value in
+                        // determine snap distance > 0.5 aka half the width of the screen
                         if abs(self.getGesturePercentage(geometry, from: value)) > self.thresholdPercentage {
                             self.onRemove(self.card)
                         } else {
@@ -113,9 +121,9 @@ struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         CardView(card: Card(id: 1, frontText: "hrana", backText: "comida"),
                  onRemove: { _ in
-                    // do nothing
-            })
-            .frame(height: 400)
-            .padding()
+            // do nothing
+        })
+        .frame(height: 400)
+        .padding()
     }
 }
