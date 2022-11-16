@@ -15,14 +15,14 @@ struct Card: Hashable {
 
 struct ContentView: View {
     @State var cards: [Card] = [
-        Card(id: 1, frontText: "skola", backText: "escuela"),
-        Card(id: 2, frontText: "rec", backText: "palabra"),
-        Card(id: 3, frontText: "hrana", backText: "comida"),
-        Card(id: 4, frontText: "slusati", backText: "escuchar"),
-        Card(id: 5, frontText: "pevati", backText: "cantar"),
-        Card(id: 6, frontText: "sto", backText: "mesa"),
-        Card(id: 7, frontText: "putovati", backText: "viajar"),
-        Card(id: 8, frontText: "zivot", backText: "vida")
+        Card(id: 0, frontText: "skola", backText: "escuela"),
+        Card(id: 1, frontText: "rec", backText: "palabra"),
+        Card(id: 2, frontText: "hrana", backText: "comida"),
+        Card(id: 3, frontText: "slusati", backText: "escuchar"),
+        Card(id: 4, frontText: "pevati", backText: "cantar"),
+        Card(id: 5, frontText: "sto", backText: "mesa"),
+        Card(id: 6, frontText: "putovati", backText: "viajar"),
+        Card(id: 7, frontText: "zivot", backText: "vida")
     ]
     
     private func getCardWidth(_ geometry: GeometryProxy, id: Int) -> CGFloat {
@@ -62,7 +62,6 @@ struct ContentView: View {
                             }
                         }
                     }
-                    Spacer()
                 }
             }
         }.padding()
