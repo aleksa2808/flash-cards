@@ -9,13 +9,11 @@ import SwiftUI
 
 struct Card: Hashable {
     var id: Int
-    
     let frontText: String
     let backText: String
 }
 
 struct ContentView: View {
-    /// List of cards
     @State var cards: [Card] = [
         Card(id: 1, frontText: "skola", backText: "escuela"),
         Card(id: 2, frontText: "rec", backText: "palabra"),
@@ -53,10 +51,8 @@ struct ContentView: View {
                     ZStack {
                         ForEach(self.cards, id: \.self) { card in
                             Group {
-                                // Range Operator
                                 if (self.maxID - 3)...self.maxID ~= card.id {
                                     CardView(card: card, showText: self.maxID == card.id, onRemove: { removedCard in
-                                        // Remove that card from our array
                                         self.cards.removeAll { $0.id == removedCard.id }
                                     })
                                     .animation(.spring(), value: self.cards.count)

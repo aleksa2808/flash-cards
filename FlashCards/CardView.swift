@@ -138,9 +138,7 @@ struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         CardView(card: Card(id: 1, frontText: "hrana", backText: "comida"),
                  showText: true,
-                 onRemove: { _ in
-            // do nothing
-        })
+                 onRemove: { _ in })
         .frame(height: 400)
         .padding()
     }
