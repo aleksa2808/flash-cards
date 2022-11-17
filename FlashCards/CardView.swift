@@ -15,11 +15,11 @@ struct CardView: View {
     
     private var card: Card
     private var showText: Bool
-    private var onRemove: (_ card: Card) -> Void
+    private var onRemove: (_ correct: Bool) -> Void
     
     private var thresholdPercentage: CGFloat = 0.3
     
-    init(card: Card, showText: Bool, onRemove: @escaping (_ card: Card) -> Void) {
+    init(card: Card, showText: Bool, onRemove: @escaping (_ correct: Bool) -> Void) {
         self.card = card
         self.showText = showText
         self.onRemove = onRemove
@@ -84,11 +84,12 @@ struct CardView: View {
                         self.translation = value.translation
                         self.swipePercentage = self.getSwipePercentage(geometry, from: value)
                     }.onEnded { value in
-                        if abs(self.getSwipePercentage(geometry, from: value)) > self.thresholdPercentage {
-                            self.onRemove(self.card)
-                        } else {
-                            self.translation = .zero
-                            self.swipePercentage = .zero
+                        self.translation = .zero
+                        self.swipePercentage = .zero
+                        
+                        let swipePercentage = self.getSwipePercentage(geometry, from: value)
+                        if abs(swipePercentage) > self.thresholdPercentage {
+                            self.onRemove(swipePercentage > 0)
                         }
                     }
             )

@@ -16,47 +16,59 @@ let cards: [Card] = [
     Card(frontText: "skola", backText: "escuela"),
     Card(frontText: "rec", backText: "palabra"),
     Card(frontText: "hrana", backText: "comida"),
-    Card(frontText: "slusati", backText: "escuchar"),
-    Card(frontText: "pevati", backText: "cantar"),
-    Card(frontText: "sto", backText: "mesa"),
-    Card(frontText: "putovati", backText: "viajar"),
-    Card(frontText: "zivot", backText: "vida"),
-    Card(frontText: "skola", backText: "escuela"),
-    Card(frontText: "rec", backText: "palabra"),
-    Card(frontText: "hrana", backText: "comida"),
-    Card(frontText: "slusati", backText: "escuchar"),
-    Card(frontText: "pevati", backText: "cantar"),
-    Card(frontText: "sto", backText: "mesa"),
-    Card(frontText: "putovati", backText: "viajar"),
-    Card(frontText: "zivot", backText: "vida"),
-    Card(frontText: "skola", backText: "escuela"),
-    Card(frontText: "rec", backText: "palabra"),
-    Card(frontText: "hrana", backText: "comida"),
-    Card(frontText: "slusati", backText: "escuchar"),
-    Card(frontText: "pevati", backText: "cantar"),
-    Card(frontText: "sto", backText: "mesa"),
-    Card(frontText: "putovati", backText: "viajar"),
-    Card(frontText: "zivot", backText: "vida"),
-    Card(frontText: "skola", backText: "escuela"),
-    Card(frontText: "rec", backText: "palabra"),
-    Card(frontText: "hrana", backText: "comida"),
-    Card(frontText: "slusati", backText: "escuchar"),
-    Card(frontText: "pevati", backText: "cantar"),
-    Card(frontText: "sto", backText: "mesa"),
-    Card(frontText: "putovati", backText: "viajar"),
-    Card(frontText: "zivot", backText: "vida")
+    //    Card(frontText: "slusati", backText: "escuchar"),
+    //    Card(frontText: "pevati", backText: "cantar"),
+    //    Card(frontText: "sto", backText: "mesa"),
+    //    Card(frontText: "putovati", backText: "viajar"),
+    //    Card(frontText: "zivot", backText: "vida"),
+    //    Card(frontText: "skola", backText: "escuela"),
+    //    Card(frontText: "rec", backText: "palabra"),
+    //    Card(frontText: "hrana", backText: "comida"),
+    //    Card(frontText: "slusati", backText: "escuchar"),
+    //    Card(frontText: "pevati", backText: "cantar"),
+    //    Card(frontText: "sto", backText: "mesa"),
+    //    Card(frontText: "putovati", backText: "viajar"),
+    //    Card(frontText: "zivot", backText: "vida"),
+    //    Card(frontText: "skola", backText: "escuela"),
+    //    Card(frontText: "rec", backText: "palabra"),
+    //    Card(frontText: "hrana", backText: "comida"),
+    //    Card(frontText: "slusati", backText: "escuchar"),
+    //    Card(frontText: "pevati", backText: "cantar"),
+    //    Card(frontText: "sto", backText: "mesa"),
+    //    Card(frontText: "putovati", backText: "viajar"),
+    //    Card(frontText: "zivot", backText: "vida"),
+    //    Card(frontText: "skola", backText: "escuela"),
+    //    Card(frontText: "rec", backText: "palabra"),
+    //    Card(frontText: "hrana", backText: "comida"),
+    //    Card(frontText: "slusati", backText: "escuchar"),
+    //    Card(frontText: "pevati", backText: "cantar"),
+    //    Card(frontText: "sto", backText: "mesa"),
+    //    Card(frontText: "putovati", backText: "viajar"),
+    //    Card(frontText: "zivot", backText: "vida")
 ]
 
-func createCardIDSet() -> [Int] {
+let numOfStages = 4
+func createCardIDSets() -> [[Int]] {
+    var cardIDSets: [[Int]] = []
+    
     var cardIDSet: [Int] = []
-    for i in 0...(cards.count - 1) {
+    for i in 0 ..< cards.count {
         cardIDSet.append(i)
     }
-    return cardIDSet.shuffled()
+    cardIDSets.append(cardIDSet.shuffled())
+    
+    for _ in 1 ..< numOfStages{
+        cardIDSets.append([])
+    }
+    
+    return cardIDSets
 }
 
 struct ContentView: View {
-    @State var cardIDSet: [Int] = createCardIDSet()
+    @State var cardIDSets: [[Int]] = createCardIDSets()
+    @State var currentStage: Int = 0
+    @State var cardsLearned: Int = 0
+    @State var swipeCount: Int = 0
     
     private func getCardOffset(_ geometry: GeometryProxy, position: Int) -> CGFloat {
         return CGFloat(position) * -10
@@ -84,26 +96,41 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, alignment: .center)
                         
                         HStack(spacing:0) {
-                            Text("5")
-                                .font(.title)
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .top)
-                            Text("2")
-                                .font(.title)
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .top)
-                            Text("24")
-                                .font(.title)
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .top)
-                            Text("0")
-                                .font(.title)
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .top)
-                            Text("0")
-                                .font(.title)
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .top)
+                            ForEach(Array(self.cardIDSets.map{$0.count}.enumerated()), id: \.0) { stage, cardsInStage in
+                                if self.cardsLearned != cards.count && stage == self.currentStage {
+                                    ZStack {
+                                        Text(String(cardsInStage))
+                                            .font(.title)
+                                            .padding()
+                                            .frame(maxWidth: .infinity, alignment: .top)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .strokeBorder(Color.yellow, lineWidth: 5)
+                                            )
+                                    }
+                                } else {
+                                    // TODO: any way to do conditional modifiers?
+                                    Text(String(cardsInStage))
+                                        .font(.title)
+                                        .padding()
+                                        .frame(maxWidth: .infinity, alignment: .top)
+                                }
+                            }
+                            if self.cardsLearned == cards.count {
+                                Text(String(self.cardsLearned))
+                                    .font(.title)
+                                    .padding()
+                                    .frame(maxWidth: .infinity, alignment: .top)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .strokeBorder(Color.green, lineWidth: 5)
+                                    )
+                            } else {
+                                Text(String(self.cardsLearned))
+                                    .font(.title)
+                                    .padding()
+                                    .frame(maxWidth: .infinity, alignment: .top)
+                            }
                         }
                     }
                     .frame(maxWidth: .infinity)
@@ -113,15 +140,48 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    ZStack { ForEach(Array(self.cardIDSet.prefix(4).enumerated().reversed()), id: \.element) { i, cardID in
-                            let card = cards[cardID]
-                            Group {
-                                CardView(card: card, showText: i == 0, onRemove: { _ in
-                                    _ = self.cardIDSet.remove(at: 0)
+                    if self.cardsLearned == cards.count {
+                        Text("Deck learned!")
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(.green)
+                    } else {
+                        ZStack {
+                            ForEach(Array(self.cardIDSets[self.currentStage].prefix(4).enumerated().reversed()), id: \.element) { i, cardID in
+                                let card = cards[cardID]
+                                CardView(card: card, showText: i == 0, onRemove: { correct in
+                                    // only purpose is to update animations. is there a better way?
+                                    self.swipeCount += 1
+                                    
+                                    let removedCardID = self.cardIDSets[self.currentStage].remove(at: 0)
+                                    if correct {
+                                        if self.currentStage == numOfStages - 1 {
+                                            self.cardsLearned += 1
+                                        } else {
+                                            self.cardIDSets[self.currentStage + 1].append(removedCardID)
+                                        }
+                                    } else if self.currentStage > 0 {
+                                        self.cardIDSets[self.currentStage - 1].append(removedCardID)
+                                    } else {
+                                        self.cardIDSets[self.currentStage].append(removedCardID)
+                                    }
+                                    
+                                    if self.cardIDSets[self.currentStage].isEmpty {
+                                        if self.currentStage > 0 && !self.cardIDSets[self.currentStage - 1].isEmpty {
+                                            self.currentStage -= 1
+                                            self.cardIDSets[self.currentStage] = self.cardIDSets[self.currentStage].shuffled()
+                                        } else if self.currentStage < numOfStages - 1 {
+                                            self.currentStage += 1
+                                            self.cardIDSets[self.currentStage] = self.cardIDSets[self.currentStage].shuffled()
+                                        } else {
+                                            
+                                        }
+                                    }
                                 })
-                                .animation(.spring(), value: self.cardIDSet.count)
+                                .animation(.spring(), value: self.swipeCount)
                                 .frame(width: self.getCardWidth(geometry, position: i), height: geometry.size.height / 2)
                                 .offset(x: 0, y: self.getCardOffset(geometry, position: i))
+                                
                             }
                         }
                     }
@@ -140,7 +200,9 @@ struct ContentView: View {
                                 .padding(10)
                         }
                         Button(action: {
-                            self.cardIDSet = createCardIDSet()
+                            self.cardIDSets = createCardIDSets()
+                            self.currentStage = 0
+                            self.cardsLearned = 0
                         }) {
                             Text("Start over")
                                 .font(.title)
