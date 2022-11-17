@@ -17,7 +17,7 @@ struct CardView: View {
     private var showText: Bool
     private var onRemove: (_ card: Card) -> Void
     
-    private var thresholdPercentage: CGFloat = 0.5
+    private var thresholdPercentage: CGFloat = 0.3
     
     init(card: Card, showText: Bool, onRemove: @escaping (_ card: Card) -> Void) {
         self.card = card
@@ -136,7 +136,7 @@ struct FlipEffect: GeometryEffect {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(card: Card(id: 1, frontText: "hrana", backText: "comida"),
+        CardView(card: Card(frontText: "hrana", backText: "comida"),
                  showText: true,
                  onRemove: { _ in })
         .frame(height: 400)
