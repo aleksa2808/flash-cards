@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
-    @State private var isShowingFront: Bool = true
+    @State private var flipped: Bool = false
     @State private var animate3d = false
     @State private var translation: CGSize = .zero
     @State private var swipePercentage: CGFloat = .zero
@@ -62,12 +62,12 @@ struct CardView: View {
                         .font(.title)
                         .multilineTextAlignment(.center)
                         .bold()
-                        .opacity(isShowingFront ? 0.0 : 1.0)
+                        .opacity(flipped ? 0.0 : 1.0)
                 }
                 Text(self.card.backText)
                     .font(.title)
                     .bold()
-                    .opacity(isShowingFront ? 1.0 : 0.0)
+                    .opacity(flipped ? 1.0 : 0.0)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
@@ -89,11 +89,15 @@ struct CardView: View {
                         
                         let swipePercentage = self.getSwipePercentage(geometry, from: value)
                         if abs(swipePercentage) > self.thresholdPercentage {
+                            if self.flipped {
+                                self.flipped = false
+                                self.animate3d.toggle()
+                            }
                             self.onRemove(swipePercentage > 0)
                         }
                     }
             )
-            .modifier(FlipEffect(flipped: $isShowingFront, angle: animate3d ? 180 : 0, axis: (x: 0, y: -1)))
+            .modifier(FlipEffect(flipped: $flipped, angle: animate3d ? 180 : 0, axis: (x: 0, y: -1)))
             .onTapGesture {
                 withAnimation(Animation.linear(duration: 0.2)) {
                     self.animate3d.toggle()
