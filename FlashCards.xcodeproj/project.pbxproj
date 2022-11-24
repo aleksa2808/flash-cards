@@ -15,6 +15,7 @@
 		96E3D98729253DB700B1BC61 /* FlashCardsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D98629253DB700B1BC61 /* FlashCardsUITests.swift */; };
 		96E3D98929253DB700B1BC61 /* FlashCardsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D98829253DB700B1BC61 /* FlashCardsUITestsLaunchTests.swift */; };
 		96E3D99629253EBD00B1BC61 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D99529253EBD00B1BC61 /* CardView.swift */; };
+		96E3D998292FCC8900B1BC61 /* StackEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D997292FCC8900B1BC61 /* StackEditorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		96E3D98629253DB700B1BC61 /* FlashCardsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsUITests.swift; sourceTree = "<group>"; };
 		96E3D98829253DB700B1BC61 /* FlashCardsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		96E3D99529253EBD00B1BC61 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		96E3D997292FCC8900B1BC61 /* StackEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackEditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				96E3D96E29253DB700B1BC61 /* Assets.xcassets */,
 				96E3D97029253DB700B1BC61 /* FlashCards.entitlements */,
 				96E3D97129253DB700B1BC61 /* Preview Content */,
+				96E3D997292FCC8900B1BC61 /* StackEditorView.swift */,
 			);
 			path = FlashCards;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96E3D998292FCC8900B1BC61 /* StackEditorView.swift in Sources */,
 				96E3D96D29253DB600B1BC61 /* ContentView.swift in Sources */,
 				96E3D99629253EBD00B1BC61 /* CardView.swift in Sources */,
 				96E3D96B29253DB600B1BC61 /* FlashCardsApp.swift in Sources */,
