@@ -15,17 +15,17 @@ struct Card: Identifiable {
 
 let initialCards = [
     Card(frontText: "skola", backText: "escuela"),
-    Card(frontText: "rec", backText: "palabra"),
-    Card(frontText: "hrana", backText: "comida"),
-    //    Card(frontText: "slusati", backText: "escuchar"),
-    //    Card(frontText: "pevati", backText: "cantar"),
-    //    Card(frontText: "sto", backText: "mesa"),
-    //    Card(frontText: "putovati", backText: "viajar"),
-    //    Card(frontText: "zivot", backText: "vida"),
-    //    Card(frontText: "skola", backText: "escuela"),
-    //    Card(frontText: "rec", backText: "palabra"),
-    //    Card(frontText: "hrana", backText: "comida"),
-    //    Card(frontText: "slusati", backText: "escuchar"),
+//    Card(frontText: "rec", backText: "palabra"),
+//    Card(frontText: "hrana", backText: "comida"),
+//    Card(frontText: "slusati", backText: "escuchar"),
+//    Card(frontText: "pevati", backText: "cantar"),
+//    Card(frontText: "sto", backText: "mesa"),
+//    Card(frontText: "putovati", backText: "viajar"),
+//    Card(frontText: "zivot", backText: "vida"),
+//    Card(frontText: "skola", backText: "escuela"),
+//    Card(frontText: "rec", backText: "palabra"),
+//    Card(frontText: "hrana", backText: "comida"),
+//    Card(frontText: "slusati", backText: "escuchar"),
     //    Card(frontText: "pevati", backText: "cantar"),
     //    Card(frontText: "sto", backText: "mesa"),
     //    Card(frontText: "putovati", backText: "viajar"),
@@ -68,6 +68,7 @@ func createCardIDSets(cards: [Card]) -> [[Int]] {
 
 struct ContentView: View {
     @State private var cards: [Card] = initialCards
+    // TODO: needs to be cleared when entering the deck editor and repopulated when exiting it
     @State private var cardIDSets: [[Int]] = createCardIDSets(cards: initialCards)
     @State private var currentStage: Int = 0
     @State private var cardsLearned: Int = 0
@@ -79,6 +80,12 @@ struct ContentView: View {
     
     private func getCardWidth(_ geometry: GeometryProxy, position: Int) -> CGFloat {
         return geometry.size.width + getCardOffset(geometry, position: position)
+    }
+    
+    private func resetDeck() {
+        self.cardIDSets = createCardIDSets(cards: self.cards)
+        self.currentStage = 0
+        self.cardsLearned = 0
     }
     
     var body: some View {
@@ -192,27 +199,24 @@ struct ContentView: View {
                         
                         HStack {
                             NavigationLink(destination: StackEditorView(cards: $cards)) {
-                                Text("Edit stack")
-                                    .font(.title)
+                                Image(systemName: "pencil")
+                                    .font(.system(size: 42))
                                     .bold()
                                     .padding()
-                                    .background(Color.blue)
+                                    .background(Color.white)
                                     .cornerRadius(40)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.blue)
                                     .padding(10)
                             }
                             Button(action: {
-                                self.cardIDSets = createCardIDSets(cards: self.cards)
-                                self.currentStage = 0
-                                self.cardsLearned = 0
+                                self.resetDeck()
                             }) {
-                                Text("Start over")
-                                    .font(.title)
+                                Image(systemName: "arrow.clockwise")
+                                    .font(.system(size: 42))
                                     .bold()
                                     .padding()
-                                    .background(Color.blue)
                                     .cornerRadius(40)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.blue)
                                     .padding(10)
                             }
                         }
