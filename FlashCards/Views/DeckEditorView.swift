@@ -1,5 +1,5 @@
 //
-//  StackEditorView.swift
+//  DeckEditorView.swift
 //  FlashCards
 //
 //  Created by Aleksa Pavlović on 24.11.22..
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct StackEditorView: View {
+struct DeckEditorView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @Binding var cardsBinding: [Card]
-    @State private var cards: [Card]
+    @Binding var deckBinding: [Card]
+    @State private var deck: [Card]
     private var onSave: () -> Void
     
     @State private var newCard: Card = Card(frontText: "", backText: "")
@@ -26,16 +26,16 @@ struct StackEditorView: View {
     private let cardWidth = 150.0
     private let cardHeight = 100.0
     
-    init(cards: Binding<[Card]>, onSave: @escaping () -> Void = {}) {
-        self._cardsBinding = cards
-        self._cards = State(initialValue: cards.wrappedValue)
+    init(deck: Binding<[Card]>, onSave: @escaping () -> Void = {}) {
+        self._deckBinding = deck
+        self._deck = State(initialValue: deck.wrappedValue)
         self.onSave = onSave
     }
     
     var body: some View {
         NavigationView {
             List {
-                ForEach($cards) { $card in
+                ForEach($deck) { $card in
                     HStack(spacing: 20) {
                         Spacer()
                         
@@ -68,10 +68,10 @@ struct StackEditorView: View {
                     }
                 }
                 .onMove { indexSet, offset in
-                    cards.move(fromOffsets: indexSet, toOffset: offset)
+                    deck.move(fromOffsets: indexSet, toOffset: offset)
                 }
                 .onDelete { indexSet in
-                    cards.remove(atOffsets: indexSet)
+                    deck.remove(atOffsets: indexSet)
                 }
                 
                 HStack(spacing: 20) {
@@ -97,7 +97,7 @@ struct StackEditorView: View {
                         TextField("", text: $newCard.backText)
                             .onSubmit {
                                 if !newCard.frontText.isEmpty && !newCard.backText.isEmpty {
-                                    self.cards.append(newCard)
+                                    self.deck.append(newCard)
                                     newCard = Card(frontText: "", backText: "")
                                     self.focusedField = .newCardFrontText
                                 } else {
@@ -132,7 +132,7 @@ struct StackEditorView: View {
                     Button("Save") {
                         // TODO: sanity checks
                         
-                        self.cardsBinding = self.cards
+                        self.deckBinding = self.deck
                         self.onSave()
                         
                         presentationMode.wrappedValue.dismiss()
@@ -143,14 +143,14 @@ struct StackEditorView: View {
     }
 }
 
-struct StackEditorView_Previews: PreviewProvider {
-    @State static var cards = [
+struct DeckEditorView_Previews: PreviewProvider {
+    @State private static var deck = [
         Card(frontText: "skola", backText: "escuela"),
         Card(frontText: "rec", backText: "palabra"),
         Card(frontText: "hrana", backText: "comida"),
     ]
     
     static var previews: some View {
-        StackEditorView(cards: $cards)
+        DeckEditorView(deck: $deck)
     }
 }

@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		963A8FA929354C0200CA9662 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 963A8FA829354C0200CA9662 /* Launch Screen.storyboard */; };
 		965A2B702935212A0039F6E6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965A2B6F2935212A0039F6E6 /* Constants.swift */; };
+		965A2B74293536FB0039F6E6 /* DeckStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965A2B73293536FB0039F6E6 /* DeckStore.swift */; };
 		96E3D96B29253DB600B1BC61 /* FlashCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D96A29253DB600B1BC61 /* FlashCardsApp.swift */; };
 		96E3D96D29253DB600B1BC61 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D96C29253DB600B1BC61 /* ContentView.swift */; };
 		96E3D96F29253DB700B1BC61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96E3D96E29253DB700B1BC61 /* Assets.xcassets */; };
@@ -16,7 +18,7 @@
 		96E3D98729253DB700B1BC61 /* FlashCardsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D98629253DB700B1BC61 /* FlashCardsUITests.swift */; };
 		96E3D98929253DB700B1BC61 /* FlashCardsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D98829253DB700B1BC61 /* FlashCardsUITestsLaunchTests.swift */; };
 		96E3D99629253EBD00B1BC61 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D99529253EBD00B1BC61 /* CardView.swift */; };
-		96E3D998292FCC8900B1BC61 /* StackEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D997292FCC8900B1BC61 /* StackEditorView.swift */; };
+		96E3D998292FCC8900B1BC61 /* DeckEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D997292FCC8900B1BC61 /* DeckEditorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		963A8FA829354C0200CA9662 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		965A2B6F2935212A0039F6E6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		965A2B73293536FB0039F6E6 /* DeckStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckStore.swift; sourceTree = "<group>"; };
 		96E3D96729253DB600B1BC61 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E3D96A29253DB600B1BC61 /* FlashCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsApp.swift; sourceTree = "<group>"; };
 		96E3D96C29253DB600B1BC61 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -50,7 +54,7 @@
 		96E3D98629253DB700B1BC61 /* FlashCardsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsUITests.swift; sourceTree = "<group>"; };
 		96E3D98829253DB700B1BC61 /* FlashCardsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		96E3D99529253EBD00B1BC61 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		96E3D997292FCC8900B1BC61 /* StackEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackEditorView.swift; sourceTree = "<group>"; };
+		96E3D997292FCC8900B1BC61 /* DeckEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckEditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		965A2B71293535CB0039F6E6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				96E3D96C29253DB600B1BC61 /* ContentView.swift */,
+				96E3D99529253EBD00B1BC61 /* CardView.swift */,
+				96E3D997292FCC8900B1BC61 /* DeckEditorView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		965A2B722935360C0039F6E6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				965A2B73293536FB0039F6E6 /* DeckStore.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		96E3D95E29253DB600B1BC61 = {
 			isa = PBXGroup;
 			children = (
@@ -102,13 +124,13 @@
 			isa = PBXGroup;
 			children = (
 				96E3D96A29253DB600B1BC61 /* FlashCardsApp.swift */,
-				96E3D96C29253DB600B1BC61 /* ContentView.swift */,
-				96E3D99529253EBD00B1BC61 /* CardView.swift */,
+				965A2B6F2935212A0039F6E6 /* Constants.swift */,
+				965A2B71293535CB0039F6E6 /* Views */,
+				965A2B722935360C0039F6E6 /* Models */,
 				96E3D96E29253DB700B1BC61 /* Assets.xcassets */,
 				96E3D97029253DB700B1BC61 /* FlashCards.entitlements */,
 				96E3D97129253DB700B1BC61 /* Preview Content */,
-				96E3D997292FCC8900B1BC61 /* StackEditorView.swift */,
-				965A2B6F2935212A0039F6E6 /* Constants.swift */,
+				963A8FA829354C0200CA9662 /* Launch Screen.storyboard */,
 			);
 			path = FlashCards;
 			sourceTree = "<group>";
@@ -242,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963A8FA929354C0200CA9662 /* Launch Screen.storyboard in Resources */,
 				96E3D97329253DB700B1BC61 /* Preview Assets.xcassets in Resources */,
 				96E3D96F29253DB700B1BC61 /* Assets.xcassets in Resources */,
 			);
@@ -268,8 +291,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				965A2B74293536FB0039F6E6 /* DeckStore.swift in Sources */,
 				965A2B702935212A0039F6E6 /* Constants.swift in Sources */,
-				96E3D998292FCC8900B1BC61 /* StackEditorView.swift in Sources */,
+				96E3D998292FCC8900B1BC61 /* DeckEditorView.swift in Sources */,
 				96E3D96D29253DB600B1BC61 /* ContentView.swift in Sources */,
 				96E3D99629253EBD00B1BC61 /* CardView.swift in Sources */,
 				96E3D96B29253DB600B1BC61 /* FlashCardsApp.swift in Sources */,
@@ -439,6 +463,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -451,7 +476,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = aleksap.FlashCards;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -479,6 +506,7 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -491,7 +519,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = aleksap.FlashCards;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
