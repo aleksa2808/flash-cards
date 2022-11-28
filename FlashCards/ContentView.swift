@@ -13,41 +13,6 @@ struct Card: Identifiable {
     var backText: String
 }
 
-let initialCards = [
-    Card(frontText: "skola", backText: "escuela"),
-    Card(frontText: "rec", backText: "palabra"),
-    Card(frontText: "hrana", backText: "comida"),
-    Card(frontText: "slusati", backText: "escuchar"),
-    Card(frontText: "pevati", backText: "cantar"),
-    Card(frontText: "sto", backText: "mesa"),
-    Card(frontText: "putovati", backText: "viajar"),
-    Card(frontText: "zivot", backText: "vida"),
-    Card(frontText: "skola", backText: "escuela"),
-    Card(frontText: "rec", backText: "palabra"),
-    Card(frontText: "hrana", backText: "comida"),
-    Card(frontText: "slusati", backText: "escuchar"),
-    //    Card(frontText: "pevati", backText: "cantar"),
-    //    Card(frontText: "sto", backText: "mesa"),
-    //    Card(frontText: "putovati", backText: "viajar"),
-    //    Card(frontText: "zivot", backText: "vida"),
-    //    Card(frontText: "skola", backText: "escuela"),
-    //    Card(frontText: "rec", backText: "palabra"),
-    //    Card(frontText: "hrana", backText: "comida"),
-    //    Card(frontText: "slusati", backText: "escuchar"),
-    //    Card(frontText: "pevati", backText: "cantar"),
-    //    Card(frontText: "sto", backText: "mesa"),
-    //    Card(frontText: "putovati", backText: "viajar"),
-    //    Card(frontText: "zivot", backText: "vida"),
-    //    Card(frontText: "skola", backText: "escuela"),
-    //    Card(frontText: "rec", backText: "palabra"),
-    //    Card(frontText: "hrana", backText: "comida"),
-    //    Card(frontText: "slusati", backText: "escuchar"),
-    //    Card(frontText: "pevati", backText: "cantar"),
-    //    Card(frontText: "sto", backText: "mesa"),
-    //    Card(frontText: "putovati", backText: "viajar"),
-    //    Card(frontText: "zivot", backText: "vida")
-]
-
 func createCardIDSets(cards: [Card]) -> [[Int]] {
     let numOfStages = 4
     
@@ -78,6 +43,13 @@ struct DeckState {
     }
 }
 
+// TODO: remove after testing
+let initialCards = [
+    Card(frontText: "hrana", backText: "comida"),
+    Card(frontText: "jabuka", backText: "manzana"),
+    Card(frontText: "zena", backText: "mujer")
+]
+
 struct ContentView: View {
     @State private var cards: [Card] = initialCards
     @State private var deckState = DeckState(
@@ -85,7 +57,8 @@ struct ContentView: View {
         currentStage: 0,
         cardsLearned: 0
     )
-    
+    @State private var deckIteration = 0
+    @State private var deckFlipped = false
     @State private var swipeCount: Int = 0
     @State private var showEditor = false
     
@@ -99,6 +72,7 @@ struct ContentView: View {
     
     private func resetDeck() {
         deckState.reset(cards: self.cards)
+        deckIteration += 1
     }
     
     var body: some View {
@@ -179,7 +153,7 @@ struct ContentView: View {
                         ZStack {
                             ForEach(Array(self.deckState.cardIDSets[self.deckState.currentStage].prefix(4).enumerated().reversed()), id: \.element) { i, cardID in
                                 let card = self.cards[cardID]
-                                CardView(card: card, showText: i == 0, onRemove: { correct in
+                                CardView(card: card, frontFacing: !self.deckFlipped, showText: i == 0, onRemove: { correct in
                                     // TODO: simplify
                                     
                                     // only purpose is to update animations. is there a better way?
@@ -211,9 +185,9 @@ struct ContentView: View {
                                 .animation(.spring(), value: self.swipeCount)
                                 .frame(width: self.getCardWidth(geometry, position: i), height: geometry.size.height / 2)
                                 .offset(x: 0, y: self.getCardOffset(geometry, position: i))
-                                
                             }
                         }
+                        .id(self.deckIteration)
                     }
                     
                     Spacer()
@@ -226,7 +200,6 @@ struct ContentView: View {
                                 .font(.system(size: 42))
                                 .bold()
                                 .padding()
-                                .background(Color.white)
                                 .cornerRadius(40)
                                 .foregroundColor(.blue)
                                 .padding(10)
@@ -235,6 +208,18 @@ struct ContentView: View {
                             self.resetDeck()
                         }) {
                             Image(systemName: "arrow.clockwise")
+                                .font(.system(size: 42))
+                                .bold()
+                                .padding()
+                                .cornerRadius(40)
+                                .foregroundColor(.blue)
+                                .padding(10)
+                        }
+                        Button(action: {
+                            self.resetDeck()
+                            self.deckFlipped.toggle()
+                        }) {
+                            Image(systemName: "arrow.left.arrow.right")
                                 .font(.system(size: 42))
                                 .bold()
                                 .padding()

@@ -48,7 +48,7 @@ struct StackEditorView: View {
                         }
                         .frame(width: self.cardWidth, height: self.cardHeight)
                         .padding()
-                        .background(Color.white)
+                        .background(Constants.cardFrontColor)
                         .cornerRadius(10)
                         .shadow(radius: 5)
                         
@@ -60,7 +60,7 @@ struct StackEditorView: View {
                         }
                         .frame(width: self.cardWidth, height: self.cardHeight)
                         .padding()
-                        .background(Color.white)
+                        .background(Constants.cardBackColor)
                         .cornerRadius(10)
                         .shadow(radius: 5)
                         
@@ -89,7 +89,7 @@ struct StackEditorView: View {
                     }
                     .frame(width: self.cardWidth, height: self.cardHeight)
                     .padding()
-                    .background(Color.white)
+                    .background(Constants.cardFrontColor)
                     .cornerRadius(10)
                     .shadow(radius: 5)
                     
@@ -111,7 +111,7 @@ struct StackEditorView: View {
                     }
                     .frame(width: self.cardWidth, height: self.cardHeight)
                     .padding()
-                    .background(Color.white)
+                    .background(Constants.cardBackColor)
                     .cornerRadius(10)
                     .shadow(radius: 5)
                     
@@ -120,6 +120,8 @@ struct StackEditorView: View {
             }
             .listStyle(PlainListStyle())
             .interactiveDismissDisabled()
+            .navigationTitle("Deck editor")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {

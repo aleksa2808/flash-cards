@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		965A2B702935212A0039F6E6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965A2B6F2935212A0039F6E6 /* Constants.swift */; };
 		96E3D96B29253DB600B1BC61 /* FlashCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D96A29253DB600B1BC61 /* FlashCardsApp.swift */; };
 		96E3D96D29253DB600B1BC61 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D96C29253DB600B1BC61 /* ContentView.swift */; };
 		96E3D96F29253DB700B1BC61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96E3D96E29253DB700B1BC61 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		965A2B6F2935212A0039F6E6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		96E3D96729253DB600B1BC61 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E3D96A29253DB600B1BC61 /* FlashCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsApp.swift; sourceTree = "<group>"; };
 		96E3D96C29253DB600B1BC61 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				96E3D97029253DB700B1BC61 /* FlashCards.entitlements */,
 				96E3D97129253DB700B1BC61 /* Preview Content */,
 				96E3D997292FCC8900B1BC61 /* StackEditorView.swift */,
+				965A2B6F2935212A0039F6E6 /* Constants.swift */,
 			);
 			path = FlashCards;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				965A2B702935212A0039F6E6 /* Constants.swift in Sources */,
 				96E3D998292FCC8900B1BC61 /* StackEditorView.swift in Sources */,
 				96E3D96D29253DB600B1BC61 /* ContentView.swift in Sources */,
 				96E3D99629253EBD00B1BC61 /* CardView.swift in Sources */,

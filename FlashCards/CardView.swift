@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct CardView: View {
-    @State private var flipped: Bool = false
+    @State private var flipped = false
     @State private var animate3d = false
     @State private var translation: CGSize = .zero
     @State private var swipePercentage: CGFloat = .zero
     
-    private var card: Card
-    private var showText: Bool
-    private var onRemove: (_ correct: Bool) -> Void
+    private let card: Card
+    private let frontFacing: Bool
+    private let showText: Bool
+    private let onRemove: (_ correct: Bool) -> Void
     
-    private var thresholdPercentage: CGFloat = 0.3
+    private let thresholdPercentage: CGFloat = 0.3
     
-    init(card: Card, showText: Bool, onRemove: @escaping (_ correct: Bool) -> Void) {
+    init(card: Card, frontFacing: Bool, showText: Bool, onRemove: @escaping (_ correct: Bool) -> Void) {
         self.card = card
+        self.frontFacing = frontFacing
         self.showText = showText
         self.onRemove = onRemove
     }
@@ -58,20 +60,22 @@ struct CardView: View {
                     .opacity(abs(min(0, self.swipePercentage / self.thresholdPercentage)))
                 
                 if self.showText {
-                    Text(self.card.frontText)
-                        .font(.title)
-                        .multilineTextAlignment(.center)
-                        .bold()
-                        .opacity(flipped ? 0.0 : 1.0)
+                    VStack {
+                        if self.frontFacing != self.flipped {
+                            Text(self.card.frontText)
+                                .font(.title)
+                                .bold()
+                        } else {
+                            Text(self.card.backText)
+                                .font(.title)
+                                .bold()
+                        }
+                    }
                 }
-                Text(self.card.backText)
-                    .font(.title)
-                    .bold()
-                    .opacity(flipped ? 1.0 : 0.0)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
-            .background(Color.white)
+            .background(self.frontFacing != self.flipped ? Constants.cardFrontColor : Constants.cardBackColor)
             .cornerRadius(10)
             .shadow(radius: 5)
             .animation(.interactiveSpring(), value: self.translation)
@@ -142,6 +146,7 @@ struct FlipEffect: GeometryEffect {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         CardView(card: Card(frontText: "hrana", backText: "comida"),
+                 frontFacing: true,
                  showText: true,
                  onRemove: { _ in })
         .frame(height: 400)
