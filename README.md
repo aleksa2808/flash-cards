@@ -10,6 +10,10 @@ Simple flash cards app made for iPhone.
 * progress all cards through 4 stages to mark the deck as learned
 * do it all in inverted mode where all the cards start out flipped
 
+## Demo
+
+![Demo gif](demo.gif)
+
 ## Known issues
 
 Currently optimised only for iPhone 11 sized screens.
