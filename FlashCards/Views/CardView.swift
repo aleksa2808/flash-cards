@@ -20,6 +20,14 @@ struct CardView: View {
     
     private let thresholdPercentage: CGFloat = 0.3
     
+    @Environment(\.colorScheme) private var colorScheme
+    private var cardFrontColor: Color {
+        self.colorScheme == .light ? LightModeColors.cardFrontColor : DarkModeColors.cardFrontColor
+    }
+    private var cardBackColor: Color {
+        self.colorScheme == .light ? LightModeColors.cardBackColor : DarkModeColors.cardBackColor
+    }
+    
     init(card: Card, startFlipped: Bool, showText: Bool, onRemove: @escaping (_ correct: Bool) -> Void) {
         self.card = card
         self.startFlipped = startFlipped
@@ -71,12 +79,12 @@ struct CardView: View {
                                 .bold()
                         }
                     }
-                    .foregroundColor(Color.white)
+                    .foregroundColor(self.colorScheme == .light ? Color.black : Color.white)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
-            .background(self.startFlipped == self.flipped ? Constants.cardFrontColor : Constants.cardBackColor)
+            .background(self.startFlipped == self.flipped ? self.cardFrontColor : self.cardBackColor)
             .cornerRadius(10)
             .shadow(radius: 5)
             .animation(.interactiveSpring(), value: self.translation)

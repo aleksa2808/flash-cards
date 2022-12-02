@@ -26,6 +26,14 @@ struct DeckEditorView: View {
     private let cardWidth = 150.0
     private let cardHeight = 100.0
     
+    @Environment(\.colorScheme) private var colorScheme
+    private var cardFrontColor: Color {
+        self.colorScheme == .light ? LightModeColors.cardFrontColor : DarkModeColors.cardFrontColor
+    }
+    private var cardBackColor: Color {
+        self.colorScheme == .light ? LightModeColors.cardBackColor : DarkModeColors.cardBackColor
+    }
+    
     init(deck: Binding<Deck>, onSave: @escaping () -> Void = {}) {
         self._deckBinding = deck
         self._deck = State(initialValue: deck.wrappedValue)
@@ -54,7 +62,7 @@ struct DeckEditorView: View {
                             }
                             .frame(width: self.cardWidth, height: self.cardHeight)
                             .padding()
-                            .background(Constants.cardFrontColor)
+                            .background(self.cardFrontColor)
                             .cornerRadius(10)
                             .shadow(radius: 5)
                             
@@ -66,7 +74,7 @@ struct DeckEditorView: View {
                             }
                             .frame(width: self.cardWidth, height: self.cardHeight)
                             .padding()
-                            .background(Constants.cardBackColor)
+                            .background(self.cardBackColor)
                             .cornerRadius(10)
                             .shadow(radius: 5)
                             
@@ -95,7 +103,7 @@ struct DeckEditorView: View {
                         }
                         .frame(width: self.cardWidth, height: self.cardHeight)
                         .padding()
-                        .background(Constants.cardFrontColor)
+                        .background(self.cardFrontColor)
                         .cornerRadius(10)
                         .shadow(radius: 5)
                         
@@ -117,14 +125,14 @@ struct DeckEditorView: View {
                         }
                         .frame(width: self.cardWidth, height: self.cardHeight)
                         .padding()
-                        .background(Constants.cardBackColor)
+                        .background(self.cardBackColor)
                         .cornerRadius(10)
                         .shadow(radius: 5)
                         
                         Spacer()
                     }
                 }
-                .foregroundColor(Color.white)
+                .foregroundColor(self.colorScheme == .light ? Color.black : Color.white)
                 .listStyle(PlainListStyle())
             }
             .interactiveDismissDisabled()

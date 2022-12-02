@@ -78,6 +78,12 @@ struct TestView: View {
     @State private var swipeCount: Int = 0
     @State private var showDeckEditor = false
     
+    @Environment(\.colorScheme) var colorScheme
+    private var gradientColors: [Color] {
+        let colors = [Color.init(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)), Color.init(#colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1))]
+        return self.colorScheme == .light ? colors : colors.reversed()
+    }
+    
     init(deck: Binding<Deck>) {
         self._deck = deck
         self._testState = State(initialValue: TestState(
@@ -102,7 +108,7 @@ struct TestView: View {
     var body: some View {
         ZStack {
             GeometryReader { geometry in
-                LinearGradient(gradient: Gradient(colors: [Color.init(#colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1)), Color.init(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1))]), startPoint: .bottom, endPoint: .top)
+                LinearGradient(gradient: Gradient(colors: self.gradientColors), startPoint: .bottom, endPoint: .top)
                     .frame(width: geometry.size.width * 1.5, height: geometry.size.height)
                     .background(Color.blue)
                     .clipShape(Circle())

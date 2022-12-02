@@ -17,6 +17,8 @@ struct TestProgressView: View {
         self.testState.cardsLearned == self.deckCardCount
     }
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
         VStack(spacing: 0) {
             Text(self.title)
@@ -54,8 +56,8 @@ struct TestProgressView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .background(Constants.cardFrontColor)
-        .foregroundColor(Color.white)
+        .background(self.colorScheme == .light ? LightModeColors.cardFrontColor : DarkModeColors.cardFrontColor)
+        .foregroundColor(self.colorScheme == .light ? Color.black : Color.white)
         .cornerRadius(10)
         .shadow(radius: 5)
     }
