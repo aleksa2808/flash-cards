@@ -7,24 +7,31 @@
 
 import Foundation
 
-struct Card: Identifiable, Codable {
+// TODO: need hashable?
+struct Card: Identifiable, Codable, Hashable {
     var id: UUID = UUID()
     var frontText: String
     var backText: String
 }
 
+struct Deck: Identifiable, Codable {
+    var id: UUID = UUID()
+    var name: String
+    var cards: [Card]
+}
+
 class DeckStore: ObservableObject {
-    @Published var deck: [Card] = []
+    @Published var decks: [Deck] = []
     
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,
                                     in: .userDomainMask,
                                     appropriateFor: nil,
                                     create: false)
-        .appendingPathComponent("deck.data")
+        .appendingPathComponent("decks.data")
     }
     
-    static func load(completion: @escaping (Result<[Card], Error>)->Void) {
+    static func load(completion: @escaping (Result<[Deck], Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
                 let fileURL = try fileURL()
@@ -34,9 +41,9 @@ class DeckStore: ObservableObject {
                     }
                     return
                 }
-                let deck = try JSONDecoder().decode([Card].self, from: file.availableData)
+                let decks = try JSONDecoder().decode([Deck].self, from: file.availableData)
                 DispatchQueue.main.async {
-                    completion(.success(deck))
+                    completion(.success(decks))
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -46,14 +53,14 @@ class DeckStore: ObservableObject {
         }
     }
     
-    static func save(deck: [Card], completion: @escaping (Result<Int, Error>)->Void) {
+    static func save(decks: [Deck], completion: @escaping (Result<Int, Error>)->Void) {
         DispatchQueue.global(qos: .background).async {
             do {
-                let data = try JSONEncoder().encode(deck)
+                let data = try JSONEncoder().encode(decks)
                 let outfile = try fileURL()
                 try data.write(to: outfile)
                 DispatchQueue.main.async {
-                    completion(.success(deck.count))
+                    completion(.success(decks.count))
                 }
             } catch {
                 DispatchQueue.main.async {

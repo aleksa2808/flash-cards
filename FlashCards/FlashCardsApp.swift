@@ -16,14 +16,13 @@ struct FlashCardsApp: App {
         WindowGroup {
             VStack {
                 if self.isLoaded {
-                    ContentView(deck: $store.deck, saveAction: {
-                        DeckStore.save(deck: store.deck) { result in
+                    ContentView(decks: $store.decks, saveAction: {
+                        DeckStore.save(decks: store.decks) { result in
                             if case .failure(let error) = result {
                                 fatalError(error.localizedDescription)
                             }
                         }
                     })
-                    .preferredColorScheme(.light)
                 } else {
                     Image("flash_cards")
                         .resizable()
@@ -35,8 +34,8 @@ struct FlashCardsApp: App {
                     switch result {
                     case .failure(let error):
                         fatalError(error.localizedDescription)
-                    case .success(let deck):
-                        self.store.deck = deck
+                    case .success(let decks):
+                        self.store.decks = decks
                         self.isLoaded = true
                     }
                 }

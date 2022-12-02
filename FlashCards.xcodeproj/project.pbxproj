@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		963A8FA929354C0200CA9662 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 963A8FA829354C0200CA9662 /* Launch Screen.storyboard */; };
+		963A8FAB293558C000CA9662 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963A8FAA293558C000CA9662 /* TestView.swift */; };
 		965A2B702935212A0039F6E6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965A2B6F2935212A0039F6E6 /* Constants.swift */; };
 		965A2B74293536FB0039F6E6 /* DeckStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965A2B73293536FB0039F6E6 /* DeckStore.swift */; };
+		966A7822293A1D77007BF003 /* TestProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966A7821293A1D77007BF003 /* TestProgressView.swift */; };
 		96E3D96B29253DB600B1BC61 /* FlashCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D96A29253DB600B1BC61 /* FlashCardsApp.swift */; };
 		96E3D96D29253DB600B1BC61 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E3D96C29253DB600B1BC61 /* ContentView.swift */; };
 		96E3D96F29253DB700B1BC61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 96E3D96E29253DB700B1BC61 /* Assets.xcassets */; };
@@ -40,8 +42,10 @@
 
 /* Begin PBXFileReference section */
 		963A8FA829354C0200CA9662 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		963A8FAA293558C000CA9662 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		965A2B6F2935212A0039F6E6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		965A2B73293536FB0039F6E6 /* DeckStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckStore.swift; sourceTree = "<group>"; };
+		966A7821293A1D77007BF003 /* TestProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestProgressView.swift; sourceTree = "<group>"; };
 		96E3D96729253DB600B1BC61 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E3D96A29253DB600B1BC61 /* FlashCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsApp.swift; sourceTree = "<group>"; };
 		96E3D96C29253DB600B1BC61 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 				96E3D96C29253DB600B1BC61 /* ContentView.swift */,
 				96E3D99529253EBD00B1BC61 /* CardView.swift */,
 				96E3D997292FCC8900B1BC61 /* DeckEditorView.swift */,
+				963A8FAA293558C000CA9662 /* TestView.swift */,
+				966A7821293A1D77007BF003 /* TestProgressView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -291,6 +297,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				963A8FAB293558C000CA9662 /* TestView.swift in Sources */,
+				966A7822293A1D77007BF003 /* TestProgressView.swift in Sources */,
 				965A2B74293536FB0039F6E6 /* DeckStore.swift in Sources */,
 				965A2B702935212A0039F6E6 /* Constants.swift in Sources */,
 				96E3D998292FCC8900B1BC61 /* DeckEditorView.swift in Sources */,

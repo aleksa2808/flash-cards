@@ -14,15 +14,15 @@ struct CardView: View {
     @State private var swipePercentage: CGFloat = .zero
     
     private let card: Card
-    private let frontFacing: Bool
+    private let startFlipped: Bool
     private let showText: Bool
     private let onRemove: (_ correct: Bool) -> Void
     
     private let thresholdPercentage: CGFloat = 0.3
     
-    init(card: Card, frontFacing: Bool, showText: Bool, onRemove: @escaping (_ correct: Bool) -> Void) {
+    init(card: Card, startFlipped: Bool, showText: Bool, onRemove: @escaping (_ correct: Bool) -> Void) {
         self.card = card
-        self.frontFacing = frontFacing
+        self.startFlipped = startFlipped
         self.showText = showText
         self.onRemove = onRemove
     }
@@ -61,7 +61,7 @@ struct CardView: View {
                 
                 if self.showText {
                     VStack {
-                        if self.frontFacing != self.flipped {
+                        if self.startFlipped == self.flipped {
                             Text(self.card.frontText)
                                 .font(.title)
                                 .bold()
@@ -71,11 +71,12 @@ struct CardView: View {
                                 .bold()
                         }
                     }
+                    .foregroundColor(Color.white)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
-            .background(self.frontFacing != self.flipped ? Constants.cardFrontColor : Constants.cardBackColor)
+            .background(self.startFlipped == self.flipped ? Constants.cardFrontColor : Constants.cardBackColor)
             .cornerRadius(10)
             .shadow(radius: 5)
             .animation(.interactiveSpring(), value: self.translation)
@@ -146,7 +147,7 @@ struct FlipEffect: GeometryEffect {
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         CardView(card: Card(frontText: "hrana", backText: "comida"),
-                 frontFacing: true,
+                 startFlipped: false,
                  showText: true,
                  onRemove: { _ in })
         .frame(height: 400)
