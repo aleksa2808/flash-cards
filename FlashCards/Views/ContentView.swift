@@ -78,6 +78,8 @@ struct ContentView: View {
                     .onDelete { indexSet in
                         self.decks.remove(atOffsets: indexSet)
                     }
+                    .moveDisabled(self.selectionMode)
+                    .deleteDisabled(self.selectionMode)
                     
                     if !self.selectionMode {
                         Button(action: {
