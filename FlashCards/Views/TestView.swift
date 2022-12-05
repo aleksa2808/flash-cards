@@ -201,7 +201,10 @@ struct TestView: View {
         .navigationBarBackButtonHidden(true)
         .padding()
         .sheet(isPresented: $showDeckEditor) {
-            DeckEditorView(deck: $deck, onSave: self.resetTest)
+            DeckEditorView(initialDeckState: deck, onSave: { deck in
+                self.deck = deck
+                self.resetTest()
+            })
         }
     }
 }

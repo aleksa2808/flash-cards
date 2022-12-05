@@ -27,31 +27,33 @@ struct TestProgressView: View {
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .center)
             
-            HStack(spacing:0) {
-                ForEach(Array(self.testState.cardSets.map{$0.count}.enumerated()), id: \.0) { stage, cardsInStage in
-                    Text(String(cardsInStage))
+            if self.deckCardCount > 0 {
+                HStack(spacing:0) {
+                    ForEach(Array(self.testState.cardSets.map{$0.count}.enumerated()), id: \.0) { stage, cardsInStage in
+                        Text(String(cardsInStage))
+                            .font(.title)
+                            .bold()
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .top)
+                    }
+                    Text(String(self.testState.cardsLearned))
                         .font(.title)
                         .bold()
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .top)
                 }
-                Text(String(self.testState.cardsLearned))
-                    .font(.title)
-                    .bold()
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .top)
-            }
-            .overlay(
-                alignment: .leading
-            ) {
-                GeometryReader { geometry in
-                    let scoreBoxWidth = geometry.size.width / CGFloat(self.testState.cardSets.count + 1)
-                    
-                    RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(self.deckLearned ? Color.green : Color.yellow, lineWidth: 5)
-                        .frame(maxWidth: scoreBoxWidth, alignment: .top)
-                        .offset(x: CGFloat(self.testState.currentStage + (self.deckLearned ? 1 : 0)) * scoreBoxWidth)
-                        .animation(.spring(), value: self.testState.cardSets)
+                .overlay(
+                    alignment: .leading
+                ) {
+                    GeometryReader { geometry in
+                        let scoreBoxWidth = geometry.size.width / CGFloat(self.testState.cardSets.count + 1)
+                        
+                        RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(self.deckLearned ? Color.green : Color.yellow, lineWidth: 5)
+                            .frame(maxWidth: scoreBoxWidth, alignment: .top)
+                            .offset(x: CGFloat(self.testState.currentStage + (self.deckLearned ? 1 : 0)) * scoreBoxWidth)
+                            .animation(.spring(), value: self.testState.cardSets)
+                    }
                 }
             }
         }

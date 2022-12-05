@@ -10,9 +10,11 @@ import SwiftUI
 struct DeckEditorView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @Binding var deckBinding: Deck
+    @State private var showAlert: Bool = false
+    @State private var errorMessage = ""
+    
     @State private var deck: Deck
-    private var onSave: () -> Void
+    private var onSave: (Deck) -> Void
     
     @State private var newCard: Card = Card(frontText: "", backText: "")
     
@@ -34,9 +36,8 @@ struct DeckEditorView: View {
         self.colorScheme == .light ? LightModeColors.cardBackColor : DarkModeColors.cardBackColor
     }
     
-    init(deck: Binding<Deck>, onSave: @escaping () -> Void = {}) {
-        self._deckBinding = deck
-        self._deck = State(initialValue: deck.wrappedValue)
+    init(initialDeckState: Deck, onSave: @escaping (Deck) -> Void) {
+        self._deck = State(initialValue: initialDeckState)
         self.onSave = onSave
     }
     
@@ -135,6 +136,9 @@ struct DeckEditorView: View {
                 .foregroundColor(self.colorScheme == .light ? Color.black : Color.white)
                 .listStyle(PlainListStyle())
             }
+            .alert(self.errorMessage, isPresented: $showAlert, actions: {
+                Button("OK", role: .cancel) {}
+            })
             .interactiveDismissDisabled()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -143,12 +147,23 @@ struct DeckEditorView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    // TODO: sanity checks
                     Button("Save") {
-                        self.deckBinding = self.deck
-                        self.onSave()
-                        
-                        presentationMode.wrappedValue.dismiss()
+                        // TODO: more sanity checks
+                        if self.deck.name.isEmpty {
+                            self.errorMessage = "No deck name provided"
+                            self.showAlert = true
+                        } else if self.deck.cards.isEmpty {
+                            self.errorMessage = "Decks cannot be empty"
+                            self.showAlert = true
+                        } else if self.deck.cards.contains(where: { card in
+                            card.frontText.trimmingCharacters(in: .whitespaces).isEmpty || card.backText.trimmingCharacters(in: .whitespaces).isEmpty
+                        }) {
+                            self.errorMessage = "Card text cannot be empty"
+                            self.showAlert = true
+                        } else {
+                            presentationMode.wrappedValue.dismiss()
+                            self.onSave(self.deck)
+                        }
                     }
                 }
             }
@@ -157,7 +172,7 @@ struct DeckEditorView: View {
 }
 
 struct DeckEditorView_Previews: PreviewProvider {
-    @State private static var deck = Deck(
+    private static var deck = Deck(
         name: "tarea #1",
         cards: [
             Card(frontText: "hrana", backText: "comida"),
@@ -167,6 +182,6 @@ struct DeckEditorView_Previews: PreviewProvider {
     )
     
     static var previews: some View {
-        DeckEditorView(deck: $deck)
+        DeckEditorView(initialDeckState: deck, onSave: { _ in })
     }
 }
