@@ -47,6 +47,7 @@ struct DeckEditorView: View {
                 TextField("Deck name", text: $deck.name)
                     .font(.title)
                     .bold()
+                    .multilineTextAlignment(.center)
                     .padding()
                 
                 List {
